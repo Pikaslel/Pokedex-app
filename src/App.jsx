@@ -1,11 +1,17 @@
-import Home from "./pages/Home.jsx";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Favorites from "./pages/Favorites";
+import Nav from "./components/Nav";
 
 function App() {
   return (
-    <div>
-      <h1>Pokedex</h1>
-      <Home />
-    </div>
+    <>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/favorites" element={<Favorites />} />
+      </Routes>
+    </>
   );
 }
 

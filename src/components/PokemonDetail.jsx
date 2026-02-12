@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { getPokemonByName, getPokemonSpecies } from "../api/pokemonApi";
+import { useContext } from "react";
+import { FavoritesContext } from "../context/FavoritesContext";
+
 
 const PokemonDetail = ({ name, onBack }) => {
     const [pokemon, setPokemon] = useState(null);
     const [generation, setGeneration] = useState("");
     const [loading, setLoading] = useState(true);
+    const { addFavorite, removeFavorite, isFavorite } = useContext(FavoritesContext);
 
+    const favorite = pokemon && isFavorite(pokemon.name);
     useEffect(() => {
         const fetchDetail = async () => {
             try {
@@ -24,6 +29,15 @@ const PokemonDetail = ({ name, onBack }) => {
         fetchDetail();
     }, [name]);
 
+    const handleFavorite = () => {
+        if (favorite) {
+            removeFavorite(name);
+        } else {
+            addFavorite(name);
+        }
+    };
+
+
     if (loading) return <p>Cargando detalle...</p>;
     if (!pokemon) return <p>No encontrado</p>;
 
@@ -32,6 +46,9 @@ const PokemonDetail = ({ name, onBack }) => {
             <button onClick={onBack}>Volver</button>
 
             <h2>{pokemon.name}</h2>
+            <button onClick={handleFavorite}>
+                {favorite ? "Quitar de favoritos" : "Agregar a favoritos"}
+            </button>
 
             <img
                 src={pokemon.sprites.front_default}
