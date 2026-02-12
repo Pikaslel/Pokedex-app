@@ -1,11 +1,18 @@
+import { useState } from "react";
 import { usePokemon } from "../hooks/usePokemon";
 import PokemonList from "../components/PokemonList";
+import PokemonDetail from "../components/PokemonDetail";
 
 const Home = () => {
     const { pokemons, loading, error } = usePokemon();
+    const [selectedPokemon, setSelectedPokemon] = useState(null);
 
     const handleSelect = (name) => {
-        console.log("Seleccionado:", name);
+        setSelectedPokemon(name);
+    };
+
+    const handleBack = () => {
+        setSelectedPokemon(null);
     };
 
     if (loading) return <p>Cargando...</p>;
@@ -13,7 +20,17 @@ const Home = () => {
 
     return (
         <div>
-            <PokemonList pokemons={pokemons} onSelect={handleSelect} />
+            {selectedPokemon ? (
+                <PokemonDetail
+                    name={selectedPokemon}
+                    onBack={handleBack}
+                />
+            ) : (
+                <PokemonList
+                pokemons={pokemons}
+                onSelect={handleSelect}
+                />
+            )}
         </div>
     );
 };

@@ -11,3 +11,8 @@ export const getPokemonByName = async (name) => {
     const response = await fetch(`${BASE_URL}/pokemon/${name}`);
     return await response.json();
 };
+
+export const getPokemonSpecies = async (name) => {
+    const response = await fetch(`${BASE_URL}/pokemon-species/${name}`);
+    return await response.json();
+};
