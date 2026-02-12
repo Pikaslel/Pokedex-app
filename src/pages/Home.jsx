@@ -1,21 +1,21 @@
 import { usePokemon } from "../hooks/usePokemon";
+import PokemonList from "../components/PokemonList";
 
 const Home = () => {
     const { pokemons, loading, error } = usePokemon();
 
-    if (loading) return <p>Loading...</p>;
+    const handleSelect = (name) => {
+        console.log("Seleccionado:", name);
+    };
+
+    if (loading) return <p>Cargando...</p>;
     if (error) return <p>Error: {error}</p>;
 
     return (
         <div>
-            <h1>Pokémon List</h1> 
-            <ul>
-                {pokemons.map((pokemon) => (
-                    <li key={pokemon.name}>{pokemon.name}</li>
-                ))}
-            </ul>            
+            <PokemonList pokemons={pokemons} onSelect={handleSelect} />
         </div>
     );
-}
+};
 
 export default Home;
