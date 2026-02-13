@@ -1,19 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getPokemonByName, getPokemonSpecies } from "../api/pokemonApi";
-import { useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
-
 
 const PokemonDetail = ({ name, onBack }) => {
     const [pokemon, setPokemon] = useState(null);
     const [generation, setGeneration] = useState("");
     const [loading, setLoading] = useState(true);
+
     const { addFavorite, removeFavorite, isFavorite } = useContext(FavoritesContext);
 
+    // 🔹 ahora validamos usando el nombre del pokemon cargado
     const favorite = pokemon && isFavorite(pokemon.name);
+
     useEffect(() => {
         const fetchDetail = async () => {
             try {
+                setLoading(true);
+
                 const data = await getPokemonByName(name);
                 const species = await getPokemonSpecies(name);
 
@@ -30,13 +33,19 @@ const PokemonDetail = ({ name, onBack }) => {
     }, [name]);
 
     const handleFavorite = () => {
+        if (!pokemon) return;
+
         if (favorite) {
-            removeFavorite(name);
+            removeFavorite(pokemon.name);
         } else {
-            addFavorite(name);
+            // Guardamos solo la información necesaria para mostrar en favoritos
+            addFavorite({
+                name: pokemon.name,
+                id: pokemon.id,
+                types: pokemon.types.map(t => t.type.name)
+            });
         }
     };
-
 
     if (loading) return <p>Cargando detalle...</p>;
     if (!pokemon) return <p>No encontrado</p>;
@@ -46,6 +55,7 @@ const PokemonDetail = ({ name, onBack }) => {
             <button onClick={onBack}>Volver</button>
 
             <h2>{pokemon.name}</h2>
+
             <button onClick={handleFavorite}>
                 {favorite ? "Quitar de favoritos" : "Agregar a favoritos"}
             </button>

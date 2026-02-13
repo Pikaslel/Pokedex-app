@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPokemons } from "../api/pokemonApi";
+import { getPokemons, getPokemonByName } from "../api/pokemonApi";
 
 export const usePokemon = () => {
     const [pokemons, setPokemons] = useState([]);
@@ -9,10 +9,27 @@ export const usePokemon = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getPokemons();
-                setPokemons(data);
-            } catch (error) {
-                setError(error.message);
+                const base = await getPokemons();
+
+                // Limitar para rendimiento
+                const limited = base.slice(0, 40);
+
+                const enriched = await Promise.all(
+                    limited.map(async (p) => {
+                        const detail = await getPokemonByName(p.name);
+
+                        return {
+                            name: detail.name,
+                            id: detail.id,
+                            types: detail.types.map(t => t.type.name)
+                        };
+                    })
+                );
+
+                setPokemons(enriched);
+
+            } catch (err) {
+                setError(err.message);
             } finally {
                 setLoading(false);
             }
