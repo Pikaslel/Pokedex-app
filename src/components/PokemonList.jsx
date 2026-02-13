@@ -1,7 +1,6 @@
 import PokemonCard from "./PokemonCard";
 import "../styles/PokemonList.css";
 const PokemonList = ({ pokemons, onSelect }) => {
-    console.log("PokemonList", pokemons);
     return (
     <div className="pokemon-list">
         {pokemons.map((pokemon) => (

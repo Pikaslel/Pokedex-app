@@ -8,7 +8,6 @@ const PokemonCard = ({ name, id, img, onClick }) => {
     >   
         <span>#{id}</span>
         <img src={img} alt={name} />
-        {console.log("img:", img)}
         <h3>{name}</h3>
     </div>
     );

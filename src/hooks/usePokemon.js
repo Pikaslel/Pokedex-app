@@ -1,43 +1,54 @@
 import { useEffect, useState } from "react";
 import { getPokemons, getPokemonByName } from "../api/pokemonApi";
 
+const CACHE_KEY = "pokemon_cache_v1";
+
 export const usePokemon = () => {
     const [pokemons, setPokemons] = useState([]);
+    const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+
+    const PER_PAGE = 40;
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const base = await getPokemons();
+        const load = async () => {
 
-                // Limitar para rendimiento
-                const limited = base.slice(0, 40);
+            // 1 — Revisar cache
+            const cached = localStorage.getItem(CACHE_KEY);
 
-                const enriched = await Promise.all(
-                    limited.map(async (p) => {
-                        const detail = await getPokemonByName(p.name);
-
-                        return {
-                            name: detail.name,
-                            id: detail.id,
-                            types: detail.types.map(t => t.type.name),
-                            img: detail.sprites.front_default
-                        };
-                    })
-                );
-
-                setPokemons(enriched);
-
-            } catch (err) {
-                setError(err.message);
-            } finally {
+            if (cached) {
+                setPokemons(JSON.parse(cached));
                 setLoading(false);
+                console.log("Datos cargados desde cache");
+                return;
             }
+
+            // 2 — Traer API solo una vez
+            const base = await getPokemons();
+
+            const enriched = await Promise.all(
+                base.map(async (p) => {
+                    const detail = await getPokemonByName(p.name);
+
+                    return {
+                        name: detail.name,
+                        id: detail.id,
+                        types: detail.types.map(t => t.type.name),
+                        img: detail.sprites.front_default
+                    };
+                })
+            );
+
+            // Guardar cache
+            localStorage.setItem(CACHE_KEY, JSON.stringify(enriched));
+
+            setPokemons(enriched);
+            setLoading(false);
         };
 
-        fetchData();
+        load();
     }, []);
 
-    return { pokemons, loading, error };
+
+    return { pokemons, loading, error: null };
 };

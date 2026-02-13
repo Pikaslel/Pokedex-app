@@ -70,7 +70,6 @@ const Home = () => {
 
     // ===============================
 
-    console.log("Pokemons procesados:", processedPokemons);
     return (
         <div>
         <h1>Pokédex</h1>
