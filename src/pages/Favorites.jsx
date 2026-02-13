@@ -1,6 +1,5 @@
-import { useState, useContext, useMemo, useEffect } from "react";
+import { useState, useContext, useMemo } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
-import { getPokemonByName } from "../api/pokemonApi";
 
 import PokemonList from "../components/PokemonList";
 import PokemonDetail from "../components/PokemonDetail";
@@ -11,8 +10,8 @@ import SortControl from "../components/SortControl";
 
 const Favorites = () => {
     const { favorites } = useContext(FavoritesContext);
+
     const [selectedPokemon, setSelectedPokemon] = useState(null);
-    const [favoriteData, setFavoriteData] = useState([]);
 
     // filtros
     const [search, setSearch] = useState("");
@@ -31,43 +30,25 @@ const Favorites = () => {
 
     const handleBack = () => setSelectedPokemon(null);
 
-    // Fetch data completa de favoritos
-    useEffect(() => {
-        const fetchFavorites = async () => {
-            if (favorites.length === 0) {
-                setFavoriteData([]);
-                return;
-            }
-            console.log("Fetching data for favorites:", favorites);
-            const results = await Promise.all(
-                favorites.map(fav => getPokemonByName(fav.name))
-            );
-
-            setFavoriteData(results);
-        };
-
-        fetchFavorites();
-    }, [favorites]);
-
-    // Pipeline filtros + sort
+    // Usarfavorites (local storage o context) para mostrar solo los favoritos
     const processedFavorites = useMemo(() => {
-        let result = [...favoriteData];
+        let result = [...favorites];
 
-        // Search
+        // 🔎 Search
         if (search) {
             result = result.filter(p =>
                 p.name.toLowerCase().includes(search.toLowerCase())
             );
         }
 
-        // Type
+        // 🔥 Type filter
         if (type) {
             result = result.filter(p =>
-                p.types.some(t => t.type.name === type)
+                p.types?.includes(type)
             );
         }
 
-        // Sort
+        // ↕ Sort
         result.sort((a, b) => {
             if (sortBy === "name") {
                 return a.name.localeCompare(b.name);
@@ -81,7 +62,7 @@ const Favorites = () => {
         });
 
         return result;
-    }, [favoriteData, search, type, sortBy]);
+    }, [favorites, search, type, sortBy]);
 
     return (
         <div>

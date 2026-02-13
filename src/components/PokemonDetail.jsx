@@ -42,7 +42,8 @@ const PokemonDetail = ({ name, onBack }) => {
             addFavorite({
                 name: pokemon.name,
                 id: pokemon.id,
-                types: pokemon.types.map(t => t.type.name)
+                types: pokemon.types.map(t => t.type.name),
+                img: pokemon.sprites.front_default
             });
         }
     };

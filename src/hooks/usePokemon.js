@@ -21,7 +21,8 @@ export const usePokemon = () => {
                         return {
                             name: detail.name,
                             id: detail.id,
-                            types: detail.types.map(t => t.type.name)
+                            types: detail.types.map(t => t.type.name),
+                            img: detail.sprites.front_default
                         };
                     })
                 );

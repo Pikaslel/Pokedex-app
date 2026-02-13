@@ -1,4 +1,4 @@
-const PokemonCard = ({ name, onClick }) => {
+const PokemonCard = ({ name, id, img, onClick }) => {
     return (
     <div
         onClick={() => onClick(name)}
@@ -8,7 +8,10 @@ const PokemonCard = ({ name, onClick }) => {
             margin: "5px",
             cursor: "pointer"
         }}
-    >
+    >   
+        <span>{id}</span>
+        <img src={img} alt={name} />
+        {console.log("img:", img)}
         <h3>{name}</h3>
     </div>
     );
