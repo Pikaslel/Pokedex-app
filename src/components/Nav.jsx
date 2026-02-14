@@ -1,20 +1,13 @@
 import { Link } from "react-router-dom";
-
+import '../styles/Nav.css';
 const Nav = () => {
 return (
     <nav
-    style={{
-        display: "flex",
-        gap: "20px",
-        padding: "10px",
-        borderBottom: "1px solid #ccc",
-        marginBottom: "20px"
-    }}
-    >
-    <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+    className="nav">
+    <Link to="/">
         Home
     </Link>
-    <Link to="/favorites" style={{ textDecoration: "none", color: "black" }}>
+    <Link to="/favorites" >
         Favoritos
     </Link>
     </nav>
