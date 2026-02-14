@@ -81,7 +81,7 @@ const Favorites = () => {
         />
 
         {favorites.length === 0 ? (
-            <p>You have no favorites yet</p>
+            <p style={{color: "#fff"}}>You have no favorites yet</p>
         ) : (
             <PokemonList
             pokemons={processedFavorites}

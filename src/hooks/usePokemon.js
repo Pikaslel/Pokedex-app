@@ -19,7 +19,6 @@ export const usePokemon = () => {
             if (cached) {
                 setPokemons(JSON.parse(cached));
                 setLoading(false);
-                console.log("Datos cargados desde cache");
                 return;
             }
 

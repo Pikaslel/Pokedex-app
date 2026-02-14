@@ -94,8 +94,8 @@ const PokemonDetail = ({
         }
     };
 
-    if (loading) return <p>Cargando detalle...</p>;
-    if (!pokemon) return <p>No encontrado</p>;
+    if (loading) return <p style={{color: "#fff"}}>Cargando detalle...</p>;
+    if (!pokemon) return <p style={{color: "#fff"}}>Pokemon Not Found </p>;
 
     // Transformación de stats para StatsBar
     const formattedStats = pokemon.stats.map(stat => ({
