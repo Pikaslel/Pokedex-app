@@ -1,3 +1,5 @@
+import '../styles/PokemonDetail.css';
+
 const StatsBar = ({ stats }) => {
 const maxStat = 150; // límite visual (puedes ajustarlo)
 
@@ -5,37 +7,25 @@ return (
     <div style={{ width: "320px"}}>
     {stats.map((stat) => (
         <div
+        className='container-bar-stats'
         key={stat.name}
-        style={{
-            display: "grid",
-            gridTemplateColumns: "60px 40px 1fr",
-            alignItems: "center",
-            marginBottom: "8px",
-            gap: "8px",
-        }}
         >
         {/* Nombre */}
-        <strong style={{ color: "#5dbb2f" }}>
+        <p >
             {stat.name.toUpperCase()}
-        </strong>
+        </p>
 
         {/* Valor */}
         <span>{stat.value.toString().padStart(3, "0")}</span>
 
         {/* Barra */}
         <div
-            style={{
-            background: "#e0e0e0",
-            height: "8px",
-            borderRadius: "6px",
-            overflow: "hidden",
-            }}
+            className='bar-stat-background'
         >
             <div
+            className='bar-stat-fill'
             style={{
                 width: `${(stat.value / maxStat) * 100}%`,
-                background: "#5dbb2f",
-                height: "100%",
             }}
             />
         </div>

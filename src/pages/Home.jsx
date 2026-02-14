@@ -99,7 +99,10 @@ const Home = () => {
             <PokemonDetail
             name={selectedPokemon}
             onBack={handleBack}
-            />
+            pokemons={processedPokemons}
+            setSelectedPokemon={setSelectedPokemon}
+        />
+
         ) : (
             <PokemonList
             pokemons={processedPokemons}
