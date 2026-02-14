@@ -64,7 +64,7 @@ const Favorites = () => {
         <div className="container-main">
         <div className="title-row">
             <PokeballIcon className="pokeball-icon" />
-            <h1>Favoritos</h1>
+            <h1>Favorites</h1>
         </div>
 
         <SearchAndSort
@@ -81,7 +81,7 @@ const Favorites = () => {
         />
 
         {favorites.length === 0 ? (
-            <p>No tienes favoritos aún</p>
+            <p>You have no favorites yet</p>
         ) : (
             <PokemonList
             pokemons={processedFavorites}
