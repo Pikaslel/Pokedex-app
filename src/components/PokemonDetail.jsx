@@ -1,15 +1,16 @@
 import { useEffect, useState, useContext } from "react";
 import { getPokemonByName, getPokemonSpecies } from "../api/pokemonApi";
 import { FavoritesContext } from "../context/FavoritesContext";
+import StatsBar from "../components/StatsBar"; 
 
 const PokemonDetail = ({ name, onBack }) => {
     const [pokemon, setPokemon] = useState(null);
     const [generation, setGeneration] = useState("");
+    const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(true);
 
     const { addFavorite, removeFavorite, isFavorite } = useContext(FavoritesContext);
 
-    // 🔹 ahora validamos usando el nombre del pokemon cargado
     const favorite = pokemon && isFavorite(pokemon.name);
 
     useEffect(() => {
@@ -22,6 +23,19 @@ const PokemonDetail = ({ name, onBack }) => {
 
                 setPokemon(data);
                 setGeneration(species.generation.name);
+
+                const entry = species.flavor_text_entries.find(
+                    e => e.language.name === "en"
+                );
+
+                if (entry) {
+                    const cleaned = entry.flavor_text
+                        .replace(/\f/g, " ")
+                        .replace(/\n/g, " ");
+
+                    setDescription(cleaned);
+                }
+
             } catch (error) {
                 console.error(error);
             } finally {
@@ -38,7 +52,6 @@ const PokemonDetail = ({ name, onBack }) => {
         if (favorite) {
             removeFavorite(pokemon.name);
         } else {
-            // Guardamos solo la información necesaria para mostrar en favoritos
             addFavorite({
                 name: pokemon.name,
                 id: pokemon.id,
@@ -50,6 +63,19 @@ const PokemonDetail = ({ name, onBack }) => {
 
     if (loading) return <p>Cargando detalle...</p>;
     if (!pokemon) return <p>No encontrado</p>;
+
+    // Transformación de stats para StatsBar
+    const formattedStats = pokemon.stats.map(stat => ({
+        name: stat.stat.name
+            .replace("special-attack", "satk")
+            .replace("special-defense", "sdef")
+            .replace("attack", "atk")
+            .replace("defense", "def")
+            .replace("speed", "spd")
+            .replace("hp", "hp")
+            .toUpperCase(),
+        value: stat.base_stat
+    }));
 
     return (
         <div>
@@ -66,15 +92,24 @@ const PokemonDetail = ({ name, onBack }) => {
                 alt={pokemon.name}
             />
 
+            <p>
+                <strong>Descripción:</strong> {description}
+            </p>
+
             <p><strong>Altura:</strong> {pokemon.height}</p>
             <p><strong>Peso:</strong> {pokemon.weight}</p>
 
             <p>
                 <strong>Tipos:</strong>{" "}
-                {pokemon.types.map((t) => t.type.name).join(", ")}
+                {pokemon.types.map(t => t.type.name).join(", ")}
             </p>
 
             <p><strong>Generación:</strong> {generation}</p>
+
+            {/* ⭐ Stats con barra visual */}
+            <h3>Stats</h3>
+            <StatsBar stats={formattedStats} />
+
         </div>
     );
 };

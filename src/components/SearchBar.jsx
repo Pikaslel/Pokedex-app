@@ -1,17 +1,17 @@
+import SearchIcon from '../assets/search.svg?react';
+import '../styles/global.css';
+
+import '../styles/SearchBar.css';
 const SearchBar = ({ search, setSearch }) => {
 return (
-    <div style={{ marginBottom: "15px" }}>
+    <div className="container-search">
+    <SearchIcon className="search-icon" />
     <input
+        name='search'
         type="text"
-        placeholder="Buscar pokemon..."
+        placeholder="Search"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{
-        padding: "8px",
-        width: "220px",
-        borderRadius: "8px",
-        border: "1px solid #ccc"
-        }}
     />
     </div>
 );

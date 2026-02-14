@@ -7,6 +7,8 @@ import PokemonDetail from "../components/PokemonDetail";
 import SearchAndSort from "../components/SearchAndSort";
 import TypeFilter from "../components/TypeFilter";
 
+import '../styles/global.css';
+
 const Home = () => {
     const { pokemons, loading, error } = usePokemon();
 
@@ -70,7 +72,7 @@ const Home = () => {
     // ===============================
 
     return (
-        <div>
+        <div className="container-main">
         <h1>Pokédex</h1>
 
         <SearchAndSort

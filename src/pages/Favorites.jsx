@@ -7,6 +7,9 @@ import PokemonDetail from "../components/PokemonDetail";
 import SearchAndSort from "../components/SearchAndSort";
 import TypeFilter from "../components/TypeFilter";
 
+import '../styles/global.css';
+
+
 const Favorites = () => {
     const { favorites } = useContext(FavoritesContext);
 
@@ -64,7 +67,7 @@ const Favorites = () => {
     }, [favorites, search, type, sortBy]);
 
     return (
-        <div>
+        <div className="container-main">
             <h1>Favoritos</h1>
 
             {selectedPokemon ? (
