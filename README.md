@@ -2,7 +2,12 @@
 
 Una Pokédex interactiva construida con React que permite explorar Pokémon, ver sus detalles, filtrarlos y guardarlos como favoritos.
 
-Este proyecto fue desarrollado como práctica de arquitectura Frontend moderna utilizando routing, manejo de estado y consumo de APIs.
+Este proyecto fue desarrollado como práctica de arquitectura Frontend moderna utilizando:
+
+- Routing dinámico
+- Manejo de estado
+- Consumo de APIs
+- Separación por capas
 
 ---
 
@@ -31,6 +36,7 @@ Este proyecto fue desarrollado como práctica de arquitectura Frontend moderna u
 
 ## 📦 Estructura del proyecto
 
+```bash
 src/
 │
 ├── api/
@@ -58,22 +64,24 @@ src/
 │   └── PokemonDetail
 │
 └── App.jsx
+```
 
 ---
 
 ## ⚙️ Instalación
 
+```bash
 git clone https://github.com/tuusuario/pokedex.git
 cd pokedex
 npm install
 npm run dev
+```
 
 ---
 
 ## 🌐 API utilizada
 
-PokéAPI
-
+PokéAPI  
 https://pokeapi.co/
 
 ---
@@ -83,7 +91,7 @@ https://pokeapi.co/
 Los favoritos se almacenan utilizando:
 
 - React Context
-- Persistencia local (localStorage)
+- localStorage
 
 Permite:
 
@@ -96,23 +104,22 @@ Permite:
 
 ## 🔀 Routing
 
-El proyecto utiliza navegación dinámica:
-
+```
 /                  → Home
 /favorites         → Lista de favoritos
 /pokemon/:name     → Detalle del Pokémon
+```
 
 Incluye:
 
 - Navegación contextual
-- Estado de origen (`location.state`)
+- `location.state`
 - Prev/Next navigation
 
+---
 
 ## 👨‍💻 Autor
 
 Felipe Matiz  
 Frontend Developer  
 Shopify / React / JS
-
----

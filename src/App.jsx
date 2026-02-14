@@ -10,7 +10,7 @@ function App() {
     <>
       <Nav />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Home />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/pokemon/:name" element={<PokemonDetailPage />} />
       </Routes>
