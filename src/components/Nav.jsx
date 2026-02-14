@@ -8,7 +8,7 @@ return (
         Home
     </Link>
     <Link to="/favorites" >
-        Favoritos
+        Favorites
     </Link>
     </nav>
 );
