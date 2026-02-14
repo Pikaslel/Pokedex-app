@@ -8,6 +8,7 @@ import SearchAndSort from "../components/SearchAndSort";
 import TypeFilter from "../components/TypeFilter";
 
 import '../styles/global.css';
+import PokeballIcon from '../assets/pokeball.svg?react';
 
 const Home = () => {
     const { pokemons, loading, error } = usePokemon();
@@ -73,7 +74,11 @@ const Home = () => {
 
     return (
         <div className="container-main">
-        <h1>Pokédex</h1>
+        <div className="title-row">
+            <PokeballIcon className="pokeball-icon" />
+            <h1>Pokédex</h1>
+        </div>
+
 
         <SearchAndSort
             search={search}

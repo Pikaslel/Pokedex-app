@@ -8,6 +8,7 @@ import SearchAndSort from "../components/SearchAndSort";
 import TypeFilter from "../components/TypeFilter";
 
 import '../styles/global.css';
+import PokeballIcon from '../assets/pokeball.svg?react';
 
 
 const Favorites = () => {
@@ -68,7 +69,10 @@ const Favorites = () => {
 
     return (
         <div className="container-main">
-            <h1>Favoritos</h1>
+            <div className="title-row">
+                <PokeballIcon className="pokeball-icon" />
+                <h1>Favoritos</h1>
+            </div>
 
             {selectedPokemon ? (
                 <PokemonDetail
