@@ -4,9 +4,8 @@ import { FavoritesContext } from "../context/FavoritesContext";
 import PokemonList from "../components/PokemonList";
 import PokemonDetail from "../components/PokemonDetail";
 
-import SearchBar from "../components/SearchBar";
+import SearchAndSort from "../components/SearchAndSort";
 import TypeFilter from "../components/TypeFilter";
-import SortControl from "../components/SortControl";
 
 const Favorites = () => {
     const { favorites } = useContext(FavoritesContext);
@@ -75,8 +74,12 @@ const Favorites = () => {
                 />
             ) : (
                 <>
-                    <SearchBar search={search} setSearch={setSearch} />
-                    <SortControl sortBy={sortBy} setSortBy={setSortBy} />
+                    <SearchAndSort
+                        search={search}
+                        setSearch={setSearch}
+                        sortBy={sortBy}
+                        setSortBy={setSortBy}
+                    />
                     <TypeFilter
                         selectedType={type}
                         setSelectedType={setType}
