@@ -1,16 +1,118 @@
-# React + Vite
+# 🧭 Pokédex React App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una Pokédex interactiva construida con React que permite explorar Pokémon, ver sus detalles, filtrarlos y guardarlos como favoritos.
 
-Currently, two official plugins are available:
+Este proyecto fue desarrollado como práctica de arquitectura Frontend moderna utilizando routing, manejo de estado y consumo de APIs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 📸 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔎 Búsqueda por nombre
+- 🎯 Filtro por tipo
+- ↕ Ordenamiento por nombre o ID
+- ❤️ Sistema de favoritos persistente
+- 📄 Página de detalle independiente
+- ⬅➡ Navegación entre Pokémon
+- 🔙 Back inteligente según contexto
+- 📱 Diseño responsive
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 Tech Stack
+
+- React
+- React Router DOM
+- JavaScript (ES6+)
+- CSS
+- Vite
+
+---
+
+## 📦 Estructura del proyecto
+
+src/
+│
+├── api/
+├── assets/
+├── components/
+│   ├── Nav
+│   ├── PokemonCard
+│   ├── PokemonDetail
+│   ├── PokemonList
+│   ├── SearchAndSort
+│   ├── SearchBar
+│   ├── SortControl
+│   ├── StatsBar
+│   └── TypeFilter
+│
+├── context/
+│   └── FavoritesContext
+│
+├── hooks/
+│   └── usePokemon
+│
+├── pages/
+│   ├── Home
+│   ├── Favorites
+│   └── PokemonDetail
+│
+└── App.jsx
+
+---
+
+## ⚙️ Instalación
+
+git clone https://github.com/tuusuario/pokedex.git
+cd pokedex
+npm install
+npm run dev
+
+---
+
+## 🌐 API utilizada
+
+PokéAPI
+
+https://pokeapi.co/
+
+---
+
+## ❤️ Favoritos
+
+Los favoritos se almacenan utilizando:
+
+- React Context
+- Persistencia local (localStorage)
+
+Permite:
+
+- Añadir
+- Eliminar
+- Filtrar
+- Navegar desde favoritos
+
+---
+
+## 🔀 Routing
+
+El proyecto utiliza navegación dinámica:
+
+/                  → Home
+/favorites         → Lista de favoritos
+/pokemon/:name     → Detalle del Pokémon
+
+Incluye:
+
+- Navegación contextual
+- Estado de origen (`location.state`)
+- Prev/Next navigation
+
+
+## 👨‍💻 Autor
+
+Felipe Matiz  
+Frontend Developer  
+Shopify / React / JS
+
+---
